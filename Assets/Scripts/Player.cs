@@ -8,6 +8,7 @@ Name of Class: Player
 Description of Class: This class will control the movement and actions of a 
                         player avatar based on user input.
                         Movement control, Camera control and Interaction control.
+                        Modified to suit IP needs
                          
 
 Date Created: 09/06/2021
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
             {
                 if (objTag == "Gem")
                 {
-                    Debug.Log(objTag);
+                    hitinfo.transform.GetComponent<Collectable>().Interact();
                 }
                 else if (objTag == "Switch")
                 {
@@ -185,8 +186,7 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Weapon")
                 {
-                    Debug.Log(objTag);
-                    canStab = true;
+                    hitinfo.transform.GetComponent<Collectable>().Interact();
                 }
                 else if (objTag == "Enemy" && canStab)
                 {
@@ -204,6 +204,25 @@ public class Player : MonoBehaviour
         }        
     }
 
+    /// <summary>
+    /// Function to trigger on anything to do with the player health
+    /// </summary>
+    /// <param name="">How much health to add/subtract. Go negative to subtract</param>
+    public void HealthManager(int Num)
+    {
+        //change health value based on that
+        health += Num;
+        //change the health text accordingly
+        healthText.text = "Health: " + health.ToString();
+
+        //lock player movement if health = 0
+        if (health <= 0)
+        {
+            CanMove = false;
+            healthText.text = "Ded";
+        }
+
+    }
     
     /// <summary>
     /// Sets the current state of the player
