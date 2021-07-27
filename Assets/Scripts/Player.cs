@@ -29,20 +29,65 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
+    ///<summary>
+    ///Player attack power
+    /// </summary>
+    private int atk = 1;
+
+    ///<summary>
+    ///Player health
+    /// </summary>
+    public int health = 10;
+
     /// <summary>
-    /// the number of quest items the player has
-    /// </summary> 
-    public int questcollect;
+    /// Player health
+    /// </summary>
+    public int stamina = 100;
 
-    ///// <summary>
-    ///// Stores settings UI
-    ///// </summary>
-    //public GameObject SettingsUI;
+    /// <summary>
+    /// Player Jump Power
+    /// </summary>
+    public float jumpPower;
 
-    ///// <summary>
-    ///// Bool to toggle SetActive() of SettingsUI
-    ///// </summary>
-    //private bool toggle = false;
+    ///<summary>
+    /// Bool to control whether player has weapon
+    /// </summary>
+    public bool canStab = false;
+
+    ///<summary>
+    ///int to check how many gems player has
+    /// </summary>
+    public int gemCount;
+
+    /// <summary>
+    /// Stores settings UI
+    /// </summary>
+    public GameObject SettingsUI;
+
+    /// <summary>
+    /// Bool to toggle SetActive() of SettingsUI
+    /// </summary>
+    private bool toggle = false;
+
+    /// <summary>
+    /// Stores Text Name highlight
+    /// </summary>
+    public Text objectName;
+
+    /// <summary>
+    /// Stores Gem Count text
+    /// </summary>
+    public Text gemCountText;
+
+    /// <summary>
+    /// Stores Stamina text
+    /// </summary>
+    public Text staminaText;
+
+    /// <summary>
+    /// Stores health text
+    /// </summary>
+    public Text healthText;
 
     /// <summary>
     /// Bool used to control if player can move (include move camera) 
@@ -68,7 +113,16 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //set the state to idle
         nextState = "Idle" + "";
+
+        //hide GemCount Text upon starting
+        gemCountText.text = "";
+
+        //set the text  values to their respective attributes
+        staminaText.text += " " + stamina.ToString();
+
+        healthText.text += " " + health.ToString();
     }
 
     // Update is called once per frame
@@ -90,8 +144,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //toggle = !toggle;
-            //SettingsUI.SetActive(toggle);
+            toggle = !toggle;
+            SettingsUI.SetActive(toggle);
             CanMove = !CanMove;
         }
     }
@@ -108,28 +162,46 @@ public class Player : MonoBehaviour
         //variable that stores what raycast has hit
         RaycastHit hitinfo;
 
-        //layer mask for the raycast. I still do not know how it works
+        //layer mask for the raycast. Only detect under this
         int layermask = 1 << LayerMask.NameToLayer("Interactable");
+
+        string objTag;
 
         //do something if the raycast hits something
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hitinfo, interactDistance, layermask))
-        {    
-            //Activate the "Interact" function in obj depending on name
-            //I directly copied this from my ASSG1 Script...
+        {
+            objTag = hitinfo.transform.tag;
+            //Activate the "Interact" function in obj depending on tag
             //Highly unoptimised, yikes
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("test");
+                if (objTag == "Gem")
+                {
+                    Debug.Log(objTag);
+                }
+                else if (objTag == "Switch")
+                {
+                    Debug.Log(objTag);
+                }
+                else if (objTag == "Weapon")
+                {
+                    Debug.Log(objTag);
+                    canStab = true;
+                }
+                else if (objTag == "Enemy" && canStab)
+                {
+                    Debug.Log(objTag);
+                }
+
             }
-            /// <summary>
-            /// Change text to display obj name
-            /// </summary> 
-            //objectName.text = hitinfo.transform.name;
+            
+            // Change text to display obj name
+            objectName.text = hitinfo.transform.name;
         } //reset name to blank if it detects nothing
-        //else
-        //{
-        //    objectName.text = "";
-        //}        
+        else
+        {
+            objectName.text = "";
+        }        
     }
 
     

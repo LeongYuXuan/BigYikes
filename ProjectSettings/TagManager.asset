@@ -5,14 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collectable
+  - Gem
+  - Switch
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
