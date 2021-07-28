@@ -188,9 +188,9 @@ public class Player : MonoBehaviour
                 {
                     hitinfo.transform.GetComponent<Collectable>().Interact();
                 }
-                else if (objTag == "Enemy" && canStab)
+                else if (objTag == "Enemy" && canStab) // can ony interact if have weapon
                 {
-                    Debug.Log(objTag);
+                    hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
                 }
 
             }
@@ -207,7 +207,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Function to trigger on anything to do with the player health
     /// </summary>
-    /// <param name="">How much health to add/subtract. Go negative to subtract</param>
+    /// <param name="">How much health to add. Go negative to subtract</param>
     public void HealthManager(int Num)
     {
         //change health value based on that
