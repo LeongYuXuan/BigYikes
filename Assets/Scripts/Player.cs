@@ -182,7 +182,7 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Switch")
                 {
-                    Debug.Log(objTag);
+                    hitinfo.transform.GetComponent<SwitchTerminal>().Interact();
                 }
                 else if (objTag == "Weapon")
                 {
