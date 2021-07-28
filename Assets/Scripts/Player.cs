@@ -27,6 +27,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
 
+    /// <summary>
+    /// Sprint speed mutiplier
+    /// </summary>
+    [SerializeField]
+    private float sprintMultiply = 2;
+
     [SerializeField]
     private float rotationSpeed;
 
@@ -43,7 +49,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Player health
     /// </summary>
-    public int stamina = 100;
+    public float stamina = 100;
 
     /// <summary>
     /// Player Jump Power
@@ -223,7 +229,19 @@ public class Player : MonoBehaviour
         }
 
     }
-    
+
+    private bool StaminaManager()
+    {
+        //drains stamina if shift is held
+        if(stamina > 0)
+        {
+            stamina -= 0.1f;
+            staminaText.text = "Stamina: " + stamina.ToString();
+            
+        }
+        return true;
+    }
+
     /// <summary>
     /// Sets the current state of the player
     /// and starts the correct coroutine.
@@ -312,9 +330,20 @@ public class Player : MonoBehaviour
         {
             if (movementVector.sqrMagnitude > 0)
             {
-                movementVector *= (moveSpeed * Time.deltaTime);
-
+                //Move the player or something
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    StaminaManager();
+                    movementVector *= ((moveSpeed*sprintMultiply) * Time.deltaTime);
+                }
+                else
+                {
+                    movementVector *= (moveSpeed * Time.deltaTime);
+                }
+                
                 transform.position += movementVector;
+                //script for sprinting
+
                 return true;
             }
             else
