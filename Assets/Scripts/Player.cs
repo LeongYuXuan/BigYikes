@@ -252,7 +252,9 @@ public class Player : MonoBehaviour
         //trigger upon left shift press
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            StopCoroutine(StamRegen());
+            //stop the regen coroutine
+            StopCoroutine("StamRegen");
+
             //return sprintmultiply if stamina > 0
             if(stamina > 0)
             {
@@ -270,13 +272,14 @@ public class Player : MonoBehaviour
         //trigger stamina regen upon releasing shift key
         if (Input.GetKeyUp(KeyCode.LeftShift) && stamina < staminaCap)
         {
-            StartCoroutine(StamRegen());
+            StartCoroutine("StamRegen");
         }   
         return 1;
     }
 
     private IEnumerator StamRegen()
     {
+        //wait 4 seconds before regening
         yield return new WaitForSeconds(4f);
         while (stamina < staminaCap)
         {
@@ -288,6 +291,7 @@ public class Player : MonoBehaviour
             {
                 stamina += Time.deltaTime;
             }
+
             
             staminaText.text = "Stamina: " + stamina.ToString("n2");
             yield return new WaitForSeconds(Time.deltaTime);
@@ -299,7 +303,6 @@ public class Player : MonoBehaviour
             staminaText.text = "Stamina: " + stamina.ToString();
         }
 
-        
     }
 
     /// <summary>
@@ -312,7 +315,6 @@ public class Player : MonoBehaviour
         currentState = nextState;
         StartCoroutine(currentState);
     }
-
 
     /// <summary>
     /// Coroutine for the idle state 
