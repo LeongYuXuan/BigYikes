@@ -249,7 +249,6 @@ public class Player : MonoBehaviour
     /// </returns>
     private float StaminaManager()
     {
-        
         //trigger upon left shift press
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -266,19 +265,14 @@ public class Player : MonoBehaviour
             {
                 stamina = 0;
                 staminaText.text = "Stamina: " + stamina.ToString();
-            }
-            
+            }       
         }
         //trigger stamina regen upon releasing shift key
         if (Input.GetKeyUp(KeyCode.LeftShift) && stamina < staminaCap)
         {
             StartCoroutine(StamRegen());
-
-        }
-        
-
+        }   
         return 1;
-
     }
 
     private IEnumerator StamRegen()
