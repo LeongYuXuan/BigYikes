@@ -11,19 +11,30 @@ Date Created: 09/06/2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Swarmer : MonoBehaviour
 {
     //Relentlessly chase the player in a certain radius
     //deals 1 damage upon contact
     //goes back to designated area once player leaves the radius
-    //idle and chase state
+    //idle, chase and return state
 
     /// <summary>
     /// Coroutine setup
     /// </summary>
     public string nextState;
-    public string CurrentState;
+    public string currentState;
+
+    /// <summary>
+    /// The NavMeshAgent this is attached to
+    /// </summary>
+    public NavMeshAgent myAgent;
+
+    /// <summary>
+    /// Thing to move towards
+    /// </summary>
+    public Transform target;
 
     /// <summary>
     /// Health of swarmer
@@ -55,6 +66,7 @@ public class Swarmer : MonoBehaviour
     /// the fade time 
     /// </summary>
     public float damageTime = 0.1f;
+    
     /// <summary>
     /// Player object to affect
     /// </summary>
@@ -67,8 +79,46 @@ public class Swarmer : MonoBehaviour
     {
         render = GetComponent<MeshRenderer>();
         ogColour = render.material.color;
+        
+        
+        //Set start state to idle
+        nextState = "Idle";
+    }
+    void Update()
+    {
+        // Check if the AI should change to a new state
+        if (nextState != currentState)
+        {
+            // Stop the current running coroutine first before starting a new one.
+            StopCoroutine(currentState);
+            currentState = nextState;
+            StartCoroutine(currentState);
+        }
     }
 
+    private IEnumerator Idle() 
+    {
+        while (currentState == "Idle")
+        {
+            if (Vector3.Distance(Player.transform.position, transform.position) < 8)
+            {
+                Debug.Log("Stop, criminal scum. You violated the law.\n" +
+                    "Your stolen goods are now forfeit.\n" +
+                    "Pay the court a fine or serve your sentence.");
+            }
+        }
+        yield return null;
+    }
+
+    private IEnumerator Chasing()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Return()
+    {
+        yield return null;
+    }
 
     /// <summary>
     /// hurt the player upon collision
