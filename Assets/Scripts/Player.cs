@@ -47,9 +47,15 @@ public class Player : MonoBehaviour
     public int health = 10;
 
     /// <summary>
-    /// Player health
+    /// The player's stamina
+    /// Number represents how long player can run, stangely
     /// </summary>
-    public float stamina = 100;
+    public float stamina = 5;
+
+    /// <summary>
+    /// The player's stamina cap, used for the staminaManager
+    /// </summary>
+    private float staminaCap;
 
     /// <summary>
     /// Player Jump Power
@@ -128,8 +134,11 @@ public class Player : MonoBehaviour
 
         //set the text  values to their respective attributes
         staminaText.text += " " + stamina.ToString();
-
         healthText.text += " " + health.ToString();
+
+        //set the stamina cap to the respective value
+        staminaCap = stamina;
+
     }
 
     // Update is called once per frame
@@ -230,16 +239,73 @@ public class Player : MonoBehaviour
 
     }
 
-    private bool StaminaManager()
+    /// <summary>
+    /// The Function that manages whether player can sprint or not
+    /// Also drains and recharges stamina, as 
+    /// </summary>
+    /// <returns>
+    /// Returns sprintmultiply value if stamina is above 0 and leftshift is held
+    /// Otherwise, return 1f
+    /// </returns>
+    private float StaminaManager()
     {
-        //drains stamina if shift is held
-        if(stamina > 0)
+        
+        //trigger upon left shift press
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            stamina -= 0.1f;
-            staminaText.text = "Stamina: " + stamina.ToString();
+            StopCoroutine(StamRegen());
+            //return sprintmultiply if stamina > 0
+            if(stamina > 0)
+            {
+                stamina -= Time.deltaTime;
+                staminaText.text = "Stamina: " + stamina.ToString("n2");
+                return sprintMultiply;
+            }
+            //set stamina back to 0 if go past
+            else if (stamina < 0)
+            {
+                stamina = 0;
+                staminaText.text = "Stamina: " + stamina.ToString();
+            }
             
         }
-        return true;
+        //trigger stamina regen upon releasing shift key
+        if (Input.GetKeyUp(KeyCode.LeftShift) && stamina < staminaCap)
+        {
+            StartCoroutine(StamRegen());
+
+        }
+        
+
+        return 1;
+
+    }
+
+    private IEnumerator StamRegen()
+    {
+        yield return new WaitForSeconds(4f);
+        while (stamina < staminaCap)
+        {
+            if (currentState == "Idle")
+            {
+                stamina += 0.01f;
+            }
+            else
+            {
+                stamina += Time.deltaTime;
+            }
+            
+            staminaText.text = "Stamina: " + stamina.ToString("n2");
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        if (stamina > staminaCap)
+        {
+            stamina = staminaCap;
+            staminaText.text = "Stamina: " + stamina.ToString();
+        }
+
+        
     }
 
     /// <summary>
@@ -331,15 +397,8 @@ public class Player : MonoBehaviour
             if (movementVector.sqrMagnitude > 0)
             {
                 //Move the player or something
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    StaminaManager();
-                    movementVector *= ((moveSpeed*sprintMultiply) * Time.deltaTime);
-                }
-                else
-                {
-                    movementVector *= (moveSpeed * Time.deltaTime);
-                }
+                //Stamina manager returns the sprintMultipy float if shift is pressed
+                movementVector *= ((moveSpeed * StaminaManager()) * Time.deltaTime);
                 
                 transform.position += movementVector;
                 //script for sprinting
