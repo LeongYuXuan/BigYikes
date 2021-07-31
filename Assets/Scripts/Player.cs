@@ -119,6 +119,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Camera playerCamera;
 
+    [SerializeField]
     private string currentState;
 
     private string nextState;
@@ -169,13 +170,21 @@ public class Player : MonoBehaviour
         
     }
 
-    //reset jump (simple script for testing purposes)
+    //reset jump. Uses a raycast or something
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 6) 
+        //stores what was hit
+        RaycastHit CheckGround;
+
+        //layer mask for the raycast. Only detect under this
+        int layermask = 1 << LayerMask.NameToLayer("Ground");
+
+        //do the following if the raycast hits something
+        if (Physics.Raycast(gameObject.transform.position,-gameObject.transform.up, out CheckGround, 1.01f, layermask))
         {
             canJump = true;
         }
+
     }
 
     /// <summary>
@@ -311,10 +320,12 @@ public class Player : MonoBehaviour
             if (currentState == "Idle")
             {
                 stamina += 0.01f;
+                //Debug.Log("Fast");
             }
             else
             {
                 stamina += Time.deltaTime;
+                //Debug.Log("Norm");
             }
 
             
@@ -349,7 +360,7 @@ public class Player : MonoBehaviour
         while(currentState == "Idle")
         {
             //Revealed in CA4 ans in wk 11 Logic error
-            if(Input.GetAxis("Horizontal") !!= 0 || Input.GetAxis("Vertical") != 0)
+            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 || canJump == false)
             {
                 nextState = "Moving";
             }
@@ -363,7 +374,7 @@ public class Player : MonoBehaviour
     {
         while (currentState == "Moving")
         {
-            if (!CheckMovement())
+            if (!CheckMovement() && canJump == true)
             {
                 nextState = "Idle";
                 
