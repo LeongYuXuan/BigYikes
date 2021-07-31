@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1188677765398457080}
   - component: {fileID: 4866867481635382861}
   - component: {fileID: 7435954612490223703}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCube5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583677441996770768}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 1749705017961508836}
   - component: {fileID: 4240366703149526192}
   - component: {fileID: 8104518268653120314}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCube4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 2130655787394692874}
   - component: {fileID: 6895479403687127668}
   - component: {fileID: 4455487715573488775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thicc_Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

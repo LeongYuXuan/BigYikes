@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7684519004160475010}
   - component: {fileID: 8599613625930736871}
   - component: {fileID: 3546855715576839195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thicc_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4346348055121815196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thicc_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

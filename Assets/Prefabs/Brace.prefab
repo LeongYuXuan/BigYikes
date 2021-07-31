@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3801275540930400322}
   - component: {fileID: 1379263390804436104}
   - component: {fileID: 3098864471242100228}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Brace
   m_TagString: Untagged
   m_Icon: {fileID: 0}

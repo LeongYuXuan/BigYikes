@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6727637175820706277}
   - component: {fileID: 4186774705415676913}
   - component: {fileID: 312115560472753686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Short_Thicc_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5959152730029768246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Short_Thicc_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -63,6 +63,11 @@ public class Player : MonoBehaviour
     public float jumpPower;
 
     ///<summary>
+    ///The boolean to control if player can jump
+    /// </summary>
+    private bool canJump = true;
+
+    ///<summary>
     /// Bool to control whether player has weapon
     /// </summary>
     public bool canStab = false;
@@ -151,6 +156,26 @@ public class Player : MonoBehaviour
         CheckRotation();
         InteractRaycast();
         MenuTrigger();
+
+        //Jump function
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            Vector3 jumpForce = transform.up * jumpPower;
+            GetComponent<Rigidbody>().AddForce(jumpForce, ForceMode.Impulse);
+            canJump = false;
+        }
+
+        
+        
+    }
+
+    //reset jump (simple script for testing purposes)
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 6) 
+        {
+            canJump = true;
+        }
     }
 
     /// <summary>
@@ -327,7 +352,6 @@ public class Player : MonoBehaviour
             if(Input.GetAxis("Horizontal") !!= 0 || Input.GetAxis("Vertical") != 0)
             {
                 nextState = "Moving";
-                
             }
             yield return null;
         }
@@ -390,6 +414,8 @@ public class Player : MonoBehaviour
         //HAs something to do with movement
         if (CanMove)
         {
+            
+
             if (movementVector.sqrMagnitude > 0)
             {
                 //Move the player or something
@@ -405,6 +431,8 @@ public class Player : MonoBehaviour
             {
                 return false;
             }
+
+            
         }
         else
         {

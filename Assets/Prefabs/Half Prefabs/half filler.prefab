@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63122830537427566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: half filler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5043360866853802233}
   - component: {fileID: 2949884341211136358}
   - component: {fileID: 3928420133478313568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Half_filler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

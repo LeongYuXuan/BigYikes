@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5764169004834308657}
   - component: {fileID: 484676461544270848}
   - component: {fileID: 3467686666243050518}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quat_Thicc_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9094126443431637836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quat thicc floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
