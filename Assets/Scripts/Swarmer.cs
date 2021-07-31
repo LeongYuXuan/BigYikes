@@ -11,19 +11,30 @@ Date Created: 09/06/2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Swarmer : MonoBehaviour
 {
     //Relentlessly chase the player in a certain radius
     //deals 1 damage upon contact
     //goes back to designated area once player leaves the radius
-    //idle and chase state
+    //idle, chase and return state
 
     /// <summary>
     /// Coroutine setup
     /// </summary>
     public string nextState;
-    public string CurrentState;
+    public string currentState;
+
+    /// <summary>
+    /// The NavMeshAgent this is attached to
+    /// </summary>
+    public NavMeshAgent myAgent;
+
+    /// <summary>
+    /// Thing to move towards
+    /// </summary>
+    public Transform target;
 
     /// <summary>
     /// Health of swarmer
@@ -54,11 +65,18 @@ public class Swarmer : MonoBehaviour
     ///<summary>
     /// the fade time 
     /// </summary>
-    public float damageTime = 0.1f;
+    private float damageTime = 0.1f;
+    
     /// <summary>
     /// Player object to affect
     /// </summary>
     public GameObject Player;
+
+    ///<summary>
+    ///Checkpoint to return to upon losing target sight
+    /// </summary>
+    [SerializeField]
+    private GameObject HomePoint;
 
     ///<summary>
     ///Things to assign upon starting
@@ -67,8 +85,75 @@ public class Swarmer : MonoBehaviour
     {
         render = GetComponent<MeshRenderer>();
         ogColour = render.material.color;
+
+        // Get the attached NavMeshAgent and store it in agentComponent
+        myAgent = GetComponent<NavMeshAgent>();
+
+        //Set start state to idle
+        nextState = "Idle";
+    }
+    void Update()
+    {     
+        //Check if the AI should change to a new state
+        if (nextState != currentState)
+        {
+            // Stop the current running coroutine first before starting a new one.
+            StopCoroutine(currentState);
+            currentState = nextState;
+            StartCoroutine(currentState);
+        }
     }
 
+    private IEnumerator Idle()
+    {
+        while (currentState == "Idle")
+        {
+            yield return null;
+            if (Vector3.Distance(Player.transform.position, transform.position) < 8)
+            {
+                Debug.Log("Stop, criminal scum. You violated the law.");
+                nextState = "Chasing";
+            }
+        }
+        
+    }
+
+    private IEnumerator Chasing()
+    {
+        //to chase player I think
+        target = Player.transform;
+        while (currentState == "Chasing") 
+        {
+            yield return null;
+            //move swarmer towards player
+            myAgent.SetDestination(target.position);
+
+            if (Vector3.Distance(target.position, transform.position) > 8)
+            {
+                Debug.Log("Must have been the wind");
+                nextState = "Return";
+            }
+            
+        }
+        
+    }
+
+    private IEnumerator Return()
+    {
+        target = HomePoint.transform;
+        while(currentState == "Return")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+
+            //set back to idle once within range of the home point
+            if (Vector3.Distance(target.position, transform.position) < 2)
+            {  
+                nextState = "Idle";
+            }
+        }
+        
+    }
 
     /// <summary>
     /// hurt the player upon collision
