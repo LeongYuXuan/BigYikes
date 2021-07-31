@@ -5,7 +5,7 @@ Name of Class: SwitchTerminal
 
 Description of Class: Class for the terminal used to control the elevator
                         only works if player has collected 4 gems
-                        Copied and modified from switch script used in 2021 i3E ASSG2
+                        
 
 Date Created: 16/07/2021
 

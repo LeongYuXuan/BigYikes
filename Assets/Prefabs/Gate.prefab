@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714088116971852833}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000014901161, z: -0, w: 1}
   m_LocalPosition: {x: 1.5, y: 0, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -105,7 +105,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583677441996770768}
-  m_Layer: 6
+  - component: {fileID: 3047267609000717605}
+  - component: {fileID: 207733001683638138}
+  m_Layer: 3
   m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +121,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2211701254700406634}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -129,6 +131,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &3047267609000717605
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211701254700406634}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c069ff8e7ea44b84fb0559ae661a83c4, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c069ff8e7ea44b84fb0559ae661a83c4, type: 2}
+  - {fileID: 7400000, guid: 9fbabae6d8b938d42942feed686a2753, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &207733001683638138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211701254700406634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12492a63e6df8084881e2b0f750afe7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: 0
 --- !u!1 &7586658127581396436
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +187,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586658127581396436}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000044703484, z: -0, w: 1}
   m_LocalPosition: {x: -1.5, y: 0, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -237,6 +269,7 @@ GameObject:
   - component: {fileID: 2130655787394692874}
   - component: {fileID: 6895479403687127668}
   - component: {fileID: 4455487715573488775}
+  - component: {fileID: 2367608822460123009}
   m_Layer: 6
   m_Name: Thicc_Wall2
   m_TagString: Untagged
@@ -316,8 +349,27 @@ MeshCollider:
   m_GameObject: {fileID: 9131638345447479350}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5039908820269879099, guid: 3dda63ba0a6c68946bf6b8a53ce3bc30, type: 3}
+--- !u!95 &2367608822460123009
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131638345447479350}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

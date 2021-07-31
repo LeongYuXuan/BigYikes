@@ -241,6 +241,10 @@ public class Player : MonoBehaviour
                 {
                     hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
                 }
+                else if (objTag == "Door")
+                {
+                    hitinfo.transform.GetComponent<Door>().Interact();
+                }
 
             }
             
