@@ -9,6 +9,7 @@ TagManager:
   - Switch
   - Enemy
   - Weapon
+  - Door
   layers:
   - Default
   - TransparentFX
