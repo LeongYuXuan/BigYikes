@@ -174,18 +174,19 @@ public class Player : MonoBehaviour
     //reset jump. Uses a raycast or something
     void OnCollisionEnter(Collision collision)
     {
-        //stores what was hit
-        RaycastHit CheckGround;
+        ////stores what was hit
+        //RaycastHit CheckGround;
 
-        //layer mask for the raycast. Only detect under this
-        int layermask = 1 << LayerMask.NameToLayer("Ground");
+        ////layer mask for the raycast. Only detect under this
+        //int layermask = 1 << LayerMask.NameToLayer("Ground");
 
-        //do the following if the raycast hits something
-        if (Physics.Raycast(gameObject.transform.position,-gameObject.transform.up, out CheckGround, 1.01f, layermask))
-        {
-            canJump = true;
-        }
+        ////do the following if the raycast hits something
+        //if (Physics.Raycast(gameObject.transform.position,-gameObject.transform.up, out CheckGround, 1.01f, layermask))
+        //{
+        //    canJump = true;
+        //}
 
+        canJump = true;
     }
 
     /// <summary>
