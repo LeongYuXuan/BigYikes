@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     ///<summary>
     ///The boolean to control if player can jump
     /// </summary>
+    [SerializeField]
     private bool canJump = true;
 
     ///<summary>
