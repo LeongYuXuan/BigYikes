@@ -252,9 +252,7 @@ public class Player : MonoBehaviour
                     else
                     {
                         hitinfo.transform.GetComponent<WeakWall>().HealthManager(-atk);
-                    }
-
-                    
+                    } 
                 }
                 else if (objTag == "Door")
                 {
