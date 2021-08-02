@@ -231,9 +231,13 @@ public class Player : MonoBehaviour
                 {
                     hitinfo.transform.GetComponent<Collectable>().Interact();
                 }
-                else if (objTag == "Switch")
+                else if (objTag == "FinalSwitch")
                 {
                     hitinfo.transform.GetComponent<SwitchTerminal>().Interact();
+                }
+                else if (objTag == "Switch")
+                {
+                    hitinfo.transform.GetComponent<Switch>().Interact();
                 }
                 else if (objTag == "Weapon")
                 {
@@ -241,7 +245,16 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Enemy" && canStab) // can ony interact if have weapon
                 {
-                    hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
+                    if (hitinfo.transform.GetComponent<Swarmer>() != null) 
+                    {
+                        hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
+                    }
+                    else
+                    {
+                        hitinfo.transform.GetComponent<WeakWall>().HealthManager(-atk);
+                    }
+
+                    
                 }
                 else if (objTag == "Door")
                 {
