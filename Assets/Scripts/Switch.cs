@@ -27,14 +27,27 @@ public class Switch : MonoBehaviour
     {
         for(int i = 0; i < ObjectArray.Length; ++i)
         {
+
             string objtag = ObjectArray[i].transform.tag;
-            if (objtag == "Weapon")
-            {
-                ObjectArray[i].transform.GetComponent<ToggleCube>().switchInteract();
-            }
-            else if (objtag == "Door")
+            if (objtag == "Door")
             {
                 ObjectArray[i].transform.GetComponent<Door>().switchInteract();
+            }
+            else if (objtag == "Toggle")
+            {
+                //check if obj has the component before executing it
+                if (ObjectArray[i].transform.GetComponent<ToggleCube>() != null)
+                {
+                    ObjectArray[i].transform.GetComponent<ToggleCube>().switchInteract();
+                }
+                else if (ObjectArray[i].transform.GetComponent<TimedPlatform>() != null)
+                {
+                    ObjectArray[i].transform.GetComponent<TimedPlatform>().switchInteract();
+                }
+                else
+                {
+                    continue;
+                }
             }
         }
     }
