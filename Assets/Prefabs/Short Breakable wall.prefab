@@ -14,11 +14,12 @@ GameObject:
   - component: {fileID: 274421616126472286}
   - component: {fileID: 274421616126472257}
   - component: {fileID: 274421616126472285}
+  - component: {fileID: 2716713820796905497}
   m_Layer: 3
   m_Name: Short Breakable wall
   m_TagString: Enemy
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &274421616126472256
@@ -329,3 +330,19 @@ MonoBehaviour:
   health: 3
   ogColour: {r: 0, g: 0, b: 0, a: 0}
   damageColour: {r: 1, g: 0.33490568, b: 0.33490568, a: 1}
+--- !u!208 &2716713820796905497
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274421616126472259}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 1.5000001, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 2, y: 1.5000001, z: -0.25}
+  m_TimeToStationary: 0.5

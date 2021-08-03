@@ -91,6 +91,8 @@ public class Swarmer : MonoBehaviour
 
         //Set start state to idle
         nextState = "Idle";
+
+        
     }
     void Update()
     {     
