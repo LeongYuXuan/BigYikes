@@ -89,26 +89,6 @@ public class Player : MonoBehaviour
     private bool toggle = false;
 
     /// <summary>
-    /// Stores Text Name highlight
-    /// </summary>
-    public Text objectName;
-
-    /// <summary>
-    /// Stores Gem Count text
-    /// </summary>
-    public Text gemCountText;
-
-    /// <summary>
-    /// Stores Stamina text
-    /// </summary>
-    public Text staminaText;
-
-    /// <summary>
-    /// Stores health text
-    /// </summary>
-    public Text healthText;
-
-    /// <summary>
     /// Bool used to control if player can move (include move camera) 
     /// </summary>
     public bool CanMove = true;
@@ -137,11 +117,11 @@ public class Player : MonoBehaviour
         nextState = "Idle" + "";
 
         //hide GemCount Text upon starting
-        gemCountText.text = "";
+        GameManager.instance.gemCountText.text = "";
 
         //set the text  values to their respective attributes
-        staminaText.text += " " + stamina.ToString();
-        healthText.text += " " + health.ToString();
+        GameManager.instance.staminaText.text += " " + stamina.ToString();
+        GameManager.instance.healthText.text += " " + health.ToString();
 
         //set the stamina cap to the respective value
         staminaCap = stamina;
@@ -231,9 +211,13 @@ public class Player : MonoBehaviour
                 {
                     hitinfo.transform.GetComponent<Collectable>().Interact();
                 }
-                else if (objTag == "Switch")
+                else if (objTag == "FinalSwitch")
                 {
                     hitinfo.transform.GetComponent<SwitchTerminal>().Interact();
+                }
+                else if (objTag == "Switch")
+                {
+                    hitinfo.transform.GetComponent<Switch>().Interact();
                 }
                 else if (objTag == "Weapon")
                 {
@@ -241,7 +225,14 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Enemy" && canStab) // can ony interact if have weapon
                 {
-                    hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
+                    if (hitinfo.transform.GetComponent<Swarmer>() != null) 
+                    {
+                        hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
+                    }
+                    else
+                    {
+                        hitinfo.transform.GetComponent<WeakWall>().HealthManager(-atk);
+                    } 
                 }
                 else if (objTag == "Door")
                 {
@@ -249,13 +240,13 @@ public class Player : MonoBehaviour
                 }
 
             }
-            
+
             // Change text to display obj name
-            objectName.text = hitinfo.transform.name;
+            GameManager.instance.objectName.text = hitinfo.transform.name;
         } //reset name to blank if it detects nothing
         else
         {
-            objectName.text = "";
+            GameManager.instance.objectName.text = "";
         }        
     }
 
@@ -268,13 +259,13 @@ public class Player : MonoBehaviour
         //change health value based on that
         health += Num;
         //change the health text accordingly
-        healthText.text = "Health: " + health.ToString();
+        GameManager.instance.healthText.text = "Health: " + health.ToString();
 
         //lock player movement if health = 0
         if (health <= 0)
         {
             CanMove = false;
-            healthText.text = "Ded";
+            GameManager.instance.healthText.text = "Ded";
         }
 
     }
@@ -299,14 +290,14 @@ public class Player : MonoBehaviour
             if(stamina > 0)
             {
                 stamina -= Time.deltaTime;
-                staminaText.text = "Stamina: " + stamina.ToString("n2");
+                GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString("n2");
                 return sprintMultiply;
             }
             //set stamina back to 0 if go past
             else if (stamina < 0)
             {
                 stamina = 0;
-                staminaText.text = "Stamina: " + stamina.ToString();
+                GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString();
             }       
         }
         //trigger stamina regen upon releasing shift key
@@ -334,15 +325,15 @@ public class Player : MonoBehaviour
                 //Debug.Log("Norm");
             }
 
-            
-            staminaText.text = "Stamina: " + stamina.ToString("n2");
+
+            GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString("n2");
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
         if (stamina > staminaCap)
         {
             stamina = staminaCap;
-            staminaText.text = "Stamina: " + stamina.ToString();
+            GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString();
         }
 
     }

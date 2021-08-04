@@ -7,9 +7,7 @@ Description of Class: Class for the terminal used to control the elevator
                         only works if player has collected 4 gems
                         
 
-Date Created: 16/07/2021
-
-Date Modified: 28/7/20201
+Date Created: 28/7/2021
 ******************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
