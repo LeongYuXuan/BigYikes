@@ -70,5 +70,7 @@ public class Door : MonoBehaviour
     public void switchInteract()
     {
         locked = false;
+        GetComponent<Animation>().Play(DoorClips[0].name);
+        GetComponent<BoxCollider>().enabled= false;
     }
 }
