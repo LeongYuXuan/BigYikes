@@ -15,10 +15,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// stores the Gamemanager
+    /// </summary>
     public static GameManager instance;
 
+    /// <summary>
+    /// Player prefab to look out for
+    /// </summary>
     public GameObject playerPrefab;
 
+
+    /// <summary>
+    /// ui prefab to look out for
+    /// </summary>
     public GameObject uiPrefab;
 
     /// <summary>
