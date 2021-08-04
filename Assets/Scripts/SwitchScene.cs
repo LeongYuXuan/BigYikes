@@ -29,6 +29,11 @@ public class SwitchScene : MonoBehaviour
         SceneManager.LoadScene(SceneToLoad);
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        SceneManager.LoadScene(SceneToLoad);
+    }
+
     ///<summary>
     ///Function for quitting the game
     ///</summary>

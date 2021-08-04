@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
             objTag = hitinfo.transform.tag;
             //Activate the "Interact" function in obj depending on tag
             //Highly unoptimised, yikes
+            //apparently child classes would had been much better, oh dear...
             if (Input.GetMouseButtonDown(0))
             {
                 if (objTag == "Gem")
@@ -217,7 +218,15 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Switch")
                 {
-                    hitinfo.transform.GetComponent<Switch>().Interact();
+                    if (hitinfo.transform.GetComponent<Switch>() != null)
+                    {
+                        hitinfo.transform.GetComponent<Switch>().Interact();
+                    }
+                    else if(hitinfo.transform.GetComponent<RotatePost>() != null)
+                    {
+                        hitinfo.transform.GetComponent<RotatePost>().Interact();
+                    }
+                    
                 }
                 else if (objTag == "Weapon")
                 {

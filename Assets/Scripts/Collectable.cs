@@ -24,29 +24,19 @@ public class Collectable : MonoBehaviour
     /// </summary>
     public bool isMachete = false;
 
-    /// <summary>
-    /// Player object to affect 
-    /// </summary>
-    public GameObject Player;
-
-    /// <summary>
-    /// Text to affecr
-    /// </summary>
-    public Text gemCountText;
-
-
 
     public void Interact()
     {
         if (isMachete)
         {
-            Player.GetComponent<Player>().canStab = true;
+            GameManager.instance.activePlayer.GetComponent<Player>().canStab = true;
             Debug.Log("Weapon get");
         }
         else
         {
-            Player.GetComponent<Player>().gemCount += 1;
-            gemCountText.text = "Gem Count: " + Player.GetComponent<Player>().gemCount;
+            GameManager.instance.activePlayer.GetComponent<Player>().gemCount += 1;
+            GameManager.instance.gemCountText.text = "Gem Count: " + 
+            GameManager.instance.activePlayer.GetComponent<Player>().gemCount;
 
         }
 

@@ -25,11 +25,22 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameObject playerPrefab;
 
+    /// <summary>
+    /// to only spawn 1 player obj
+    /// </summary>
+    [HideInInspector]
+    public Player activePlayer;
 
     /// <summary>
     /// ui prefab to look out for
     /// </summary>
     public GameObject uiPrefab;
+
+    /// <summary>
+    /// to only spawn 1 UI obj
+    /// </summary>
+    [HideInInspector]
+    public Player activeUI;
 
     /// <summary>
     /// Stores Text Name highlight
@@ -51,10 +62,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public Text healthText;
 
-    [HideInInspector]
-    public Player activePlayer;
+    
     void Awake()
     {
+        //to destroy itself if the scene already has one by default?
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -62,14 +73,31 @@ public class GameManager : MonoBehaviour
         else
         {
             DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += SpawnOnSceneLoad;
             instance = this;
         }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
     {
+        //find the spawn area for the player
+        SpawnArea playerSpot = FindObjectOfType<SpawnArea>();
+        //assign rotation and position for convinience
+        Vector3 spawnPostion = playerSpot.transform.position;
+        Quaternion spawnRotation = playerSpot.transform.rotation;
         
+        //spawn new player at the specified location if active is null
+        if (activePlayer == null)
+        {
+            GameObject newPlayer = Instantiate(playerPrefab, spawnPostion, spawnRotation);
+            activePlayer = newPlayer.GetComponent<Player>();
+        }//move the active player to that place
+        else
+        {
+            activePlayer.transform.position = spawnPostion;
+            activePlayer.transform.rotation = spawnRotation;
+        }
+
     }
 }
