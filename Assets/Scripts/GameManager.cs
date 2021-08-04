@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
             SceneManager.activeSceneChanged += SpawnOnSceneLoad;
             instance = this;
         }
-        
+        DontDestroyOnLoad(uiPrefab);
     }
 
     private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
