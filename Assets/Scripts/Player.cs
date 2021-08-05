@@ -110,22 +110,6 @@ public class Player : MonoBehaviour
     /// </summary>
     [SerializeField] private float interactDistance;
 
-    /// <summary>
-    /// bool to make sure start function only works once
-    /// </summary>
-    public bool resetStart = false;
-
-    public void resetvalue()
-    {
-        if (!resetStart)
-        {
-            gemCount = 0;
-            canStab = false;
-            health = 10;
-            resetStart = true;
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
