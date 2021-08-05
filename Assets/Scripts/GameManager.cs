@@ -28,19 +28,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// to only spawn 1 player obj
     /// </summary>
-    [HideInInspector]
+    //[HideInInspector]
     public Player activePlayer;
 
     /// <summary>
     /// ui prefab to look out for
     /// </summary>
-    public GameObject uiPrefab;
+    public Canvas uiPrefab;
 
     /// <summary>
     /// to only spawn 1 UI obj
     /// </summary>
     [HideInInspector]
-    public Player activeUI;
+    public Canvas activeUI;
 
     /// <summary>
     /// Stores Text Name highlight
@@ -65,18 +65,23 @@ public class GameManager : MonoBehaviour
     
     void Awake()
     {
+        Debug.Log("Gameobject: " + gameObject);
         //to destroy itself if the scene already has one by default?
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            Debug.Log("destroy gm");
         }
         else
         {
             DontDestroyOnLoad(gameObject);
             SceneManager.activeSceneChanged += SpawnOnSceneLoad;
             instance = this;
+            Debug.Log("assign gm");
         }
-        DontDestroyOnLoad(uiPrefab);
+        
+
+        
     }
 
     private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
@@ -86,18 +91,37 @@ public class GameManager : MonoBehaviour
         //assign rotation and position for convinience
         Vector3 spawnPostion = playerSpot.transform.position;
         Quaternion spawnRotation = playerSpot.transform.rotation;
-        
+
+
+        //Debug.Log(activePlayer);
         //spawn new player at the specified location if active is null
         if (activePlayer == null)
         {
             GameObject newPlayer = Instantiate(playerPrefab, spawnPostion, spawnRotation);
             activePlayer = newPlayer.GetComponent<Player>();
+            //Debug.Log("spawn");
         }//move the active player to that place
         else
         {
             activePlayer.transform.position = spawnPostion;
             activePlayer.transform.rotation = spawnRotation;
+            //Debug.Log("move");
         }
-
+        //if no assigned ui prefab, assign new one from spawn scene
+        if (uiPrefab == null)
+        {
+            uiPrefab = FindObjectOfType<Canvas>();
+            DontDestroyOnLoad(uiPrefab);
+            
+        }
+        else // uiPrefab already filled, and there is more than one, delete the new one
+        {
+            var test = FindObjectsOfType<Canvas>();
+            if (test.Length > 1)
+            {
+                Destroy(test[1].gameObject);
+            }
+            
+        }
     }
 }

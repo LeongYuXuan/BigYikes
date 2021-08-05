@@ -31,7 +31,7 @@ public class LaserPost : MonoBehaviour
     /// <summary>
     /// the length of the laser
     /// </summary>
-    private float interactDist = 12;
+    private float interactDist = 8;
 
     private void Update()
     {
