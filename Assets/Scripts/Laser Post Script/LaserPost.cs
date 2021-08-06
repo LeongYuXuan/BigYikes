@@ -28,11 +28,21 @@ public class LaserPost : MonoBehaviour
     [SerializeField]
     private GameObject laserHead;
 
+    ///<summary>
+    ///Line renderer of laser head
+    /// </summary>
+    private LineRenderer actualLaser;
+
     /// <summary>
-    /// the length of the laser
+    /// the length of the laser (raycast)
     /// </summary>
     private float interactDist = 8;
 
+    private void Start()
+    {
+        actualLaser = laserHead.GetComponent<LineRenderer>();
+        
+    }
     private void Update()
     {
         //have raycast on by default if is on
@@ -45,6 +55,8 @@ public class LaserPost : MonoBehaviour
 
     private void laserRaycast()
     {
+
+        actualLaser.SetPosition(0, laserHead.transform.position);
         //variable that stores what raycast has hit
         RaycastHit hitinfo;
 
@@ -60,6 +72,11 @@ public class LaserPost : MonoBehaviour
         //do something if the raycast hits something
         if (Physics.Raycast(laserHead.transform.position, laserHead.transform.forward, out hitinfo, interactDist, layermask))
         {
+            if (hitinfo.collider)
+            {
+                actualLaser.SetPosition(1, hitinfo.point);
+            }
+
             objTag = hitinfo.transform.tag;
             //do this if laser hits something
             if (objTag == "Laser")
@@ -70,7 +87,8 @@ public class LaserPost : MonoBehaviour
             {
                 hitinfo.transform.GetComponent<Switch>().Interact();
             }
-        }
+        } 
+       
     }
 
     /// <summary>
