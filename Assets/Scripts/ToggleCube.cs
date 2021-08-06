@@ -3,7 +3,7 @@ Author: Leong Yu Xuan
 
 Name of Class: Weak wall;
 
-Description of Class: This class is a test class for the switch to see if it works
+Description of Class: This class controls the objects that appear/disappear upon switch activation
 
 Date Created: 02/08/2021
 ******************************************************************************/
@@ -16,14 +16,20 @@ public class ToggleCube : MonoBehaviour
     /// <summary>
     /// Bool that stores intial state of the obj's mesh renderer
     /// </summary>
-    private bool isActive;
+    private bool initialMeshState;
 
     /// <summary>
-    /// assign the enabled bool to isActive
+    /// Bool that stores intial state of the obj's mesh collider
+    /// </summary>
+    private bool initialColliderState;
+
+    /// <summary>
+    /// assign the respective bools to the variables
     /// </summary>
     private void Awake()
     {
-        isActive = gameObject.GetComponent<MeshRenderer>().enabled;
+        initialMeshState = gameObject.GetComponent<MeshRenderer>().enabled;
+        initialColliderState = gameObject.GetComponent<MeshCollider>().enabled;
     }
 
     /// <summary>
@@ -31,6 +37,7 @@ public class ToggleCube : MonoBehaviour
     /// </summary>
     public void switchInteract()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = !isActive;
+        gameObject.GetComponent<MeshRenderer>().enabled = !initialMeshState;
+        gameObject.GetComponent<MeshCollider>().enabled = !initialColliderState;
     }
 }

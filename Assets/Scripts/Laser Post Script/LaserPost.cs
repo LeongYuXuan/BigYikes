@@ -74,12 +74,13 @@ public class LaserPost : MonoBehaviour
     }
 
     /// <summary>
-    /// what to execute if being "hit" by laser
+    /// what to execute if being interacted by switch
+    /// re-enable it's own collider and unhide the laser head
     /// </summary>
-    public bool laserInteract() 
+    public void switchInteract() 
     {
-        Debug.Log("yes");
-        return false;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+        laserHead.GetComponent<MeshRenderer>().enabled = true;
     }
 
 }

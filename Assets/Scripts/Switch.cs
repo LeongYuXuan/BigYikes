@@ -49,6 +49,10 @@ public class Switch : MonoBehaviour
                     continue;
                 }
             }
+            else if (objtag == "Laser")
+            {
+                ObjectArray[i].transform.GetComponent<LaserPost>().switchInteract();
+            }
         }
     }
 }
