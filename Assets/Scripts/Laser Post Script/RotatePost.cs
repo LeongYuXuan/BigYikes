@@ -34,8 +34,8 @@ public class RotatePost : MonoBehaviour
 
     public void Interact()
     {
-        //assign initial rotation of object
-        Vector3 laserRotation = laserHead.transform.rotation.eulerAngles;
+        //assign initial local rotation of object
+        Vector3 laserRotation = laserHead.transform.localRotation.eulerAngles;
         //add or subtract to the rotation 
         if (inverse)
         {
@@ -46,7 +46,7 @@ public class RotatePost : MonoBehaviour
             laserRotation.y += rotateAngle;
         }
         //set to new rotation value
-        laserHead.transform.rotation = Quaternion.Euler(laserRotation);
+        laserHead.transform.localRotation = Quaternion.Euler(laserRotation);
         
 
     }

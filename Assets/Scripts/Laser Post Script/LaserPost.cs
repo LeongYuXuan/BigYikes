@@ -57,6 +57,7 @@ public class LaserPost : MonoBehaviour
     {
 
         actualLaser.SetPosition(0, laserHead.transform.position);
+        actualLaser.SetPosition(1, laserHead.transform.position + laserHead.transform.forward *8);
         //variable that stores what raycast has hit
         RaycastHit hitinfo;
 
@@ -88,6 +89,7 @@ public class LaserPost : MonoBehaviour
                 hitinfo.transform.GetComponent<Switch>().Interact();
             }
         } 
+        
        
     }
 
