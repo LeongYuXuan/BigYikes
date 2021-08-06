@@ -47,7 +47,7 @@ public class SwitchTerminal: MonoBehaviour
     public void Function()
     {
         //only trigger if player collected the 4 gems
-        if(Player.GetComponent<Player>().gemCount >= 4)
+        if(GameManager.instance.activePlayer.GetComponent<Player>().gemCount >= 4)
         {
             if (ToggleElevator)
             {

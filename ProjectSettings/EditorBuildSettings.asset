@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
-  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
     path: Assets/Scenes/Extra whitebox.unity
     guid: dc01a2f1aed71ca4a8a01181e1be8331
+  - enabled: 1
+    path: Assets/Scenes/maze.unity
+    guid: 52f84cb8b8c61a04a9a34f1e7c26b110
   m_configObjects: {}

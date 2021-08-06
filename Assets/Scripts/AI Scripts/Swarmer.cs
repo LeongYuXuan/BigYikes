@@ -66,11 +66,6 @@ public class Swarmer : MonoBehaviour
     /// the fade time 
     /// </summary>
     private float damageTime = 0.1f;
-    
-    /// <summary>
-    /// Player object to affect
-    /// </summary>
-    public GameObject Player;
 
     ///<summary>
     ///Checkpoint to return to upon losing target sight
@@ -88,6 +83,8 @@ public class Swarmer : MonoBehaviour
 
         // Get the attached NavMeshAgent and store it in agentComponent
         myAgent = GetComponent<NavMeshAgent>();
+
+
 
         //Set start state to idle
         nextState = "Idle";
@@ -111,7 +108,7 @@ public class Swarmer : MonoBehaviour
         while (currentState == "Idle")
         {
             yield return null;
-            if (Vector3.Distance(Player.transform.position, transform.position) < 8)
+            if (Vector3.Distance(GameManager.instance.activePlayer.transform.position, transform.position) < 8)
             {
                 Debug.Log("Stop, criminal scum. You violated the law.");
                 nextState = "Chasing";
@@ -123,7 +120,7 @@ public class Swarmer : MonoBehaviour
     private IEnumerator Chasing()
     {
         //to chase player I think
-        target = Player.transform;
+        target = GameManager.instance.activePlayer.transform;
         while (currentState == "Chasing") 
         {
             yield return null;

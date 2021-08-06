@@ -120,8 +120,8 @@ public class Player : MonoBehaviour
         GameManager.instance.gemCountText.text = "";
 
         //set the text  values to their respective attributes
-        GameManager.instance.staminaText.text += " " + stamina.ToString();
-        GameManager.instance.healthText.text += " " + health.ToString();
+        GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString();
+        GameManager.instance.healthText.text = " Health: " + health.ToString();
 
         //set the stamina cap to the respective value
         staminaCap = stamina;
@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
             objTag = hitinfo.transform.tag;
             //Activate the "Interact" function in obj depending on tag
             //Highly unoptimised, yikes
+            //apparently child classes would had been much better, oh dear...
             if (Input.GetMouseButtonDown(0))
             {
                 if (objTag == "Gem")
@@ -217,7 +218,15 @@ public class Player : MonoBehaviour
                 }
                 else if (objTag == "Switch")
                 {
-                    hitinfo.transform.GetComponent<Switch>().Interact();
+                    if (hitinfo.transform.GetComponent<Switch>() != null)
+                    {
+                        hitinfo.transform.GetComponent<Switch>().Interact();
+                    }
+                    else if(hitinfo.transform.GetComponent<RotatePost>() != null)
+                    {
+                        hitinfo.transform.GetComponent<RotatePost>().Interact();
+                    }
+                    
                 }
                 else if (objTag == "Weapon")
                 {

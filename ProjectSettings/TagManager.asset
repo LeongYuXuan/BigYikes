@@ -12,6 +12,7 @@ TagManager:
   - Door
   - FinalSwitch
   - Toggle
+  - Laser
   layers:
   - Default
   - TransparentFX

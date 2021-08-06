@@ -21,6 +21,11 @@ public class Door : MonoBehaviour
     private bool doorTrigger = false;
 
     /// <summary>
+    /// to prevent the switch interact from executing more than once
+    /// </summary>
+    private bool triggerOnce = true;
+
+    /// <summary>
     /// Door does nothing if true
     /// </summary>
     public bool locked = false;
@@ -69,6 +74,12 @@ public class Door : MonoBehaviour
     /// </summary>
     public void switchInteract()
     {
-        locked = false;
+        if (triggerOnce)
+        {
+            locked = false;
+            GetComponent<Animation>().Play(DoorClips[0].name);
+            GetComponent<BoxCollider>().enabled = false;
+            triggerOnce = false;
+        }      
     }
 }
