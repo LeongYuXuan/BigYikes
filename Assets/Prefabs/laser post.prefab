@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5649792714208449578}
   - component: {fileID: 7692405289165808744}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 4907701004134379146}
   - component: {fileID: 4907701004134379149}
   m_Layer: 3
-  m_Name: Laser post
+  m_Name: LaserBody
   m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,8 +800,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 1.5, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.4, y: 0.4593966, z: 0.4}
+  m_Center: {x: 0, y: 0.5203017, z: 0}
 --- !u!114 &4907701004134379149
 MonoBehaviour:
   m_ObjectHideFlags: 0
