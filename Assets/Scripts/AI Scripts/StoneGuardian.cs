@@ -17,10 +17,11 @@ using UnityEngine.AI;
 public class StoneGuardian : MonoBehaviour
 {
     //Active state controlled externally
-    //Stays away from player from a fixed distance and shoots at them for a while
-    //Charges at player. deals twice the damage but can get stuck in walls
+    //Stays away from player from a fixed distance and shoots at them (10 seconds)
+    //Charges at player. deals twice the damage but can get stuck in walls (10 seconds)
     //Stuck for 5 seconds
-    //Shoot, Charge and Stuck stages
+    //Stops enemy spawn and spawns in gem when defeated. Becomes immobile
+    //Shoot, Charge, Stuck, Defeat state
 
     /// <summary>
     /// Coroutine setup
@@ -69,6 +70,12 @@ public class StoneGuardian : MonoBehaviour
     /// </summary>
     private float damageTime = 0.1f;
 
+    ///<summary>
+    ///Checkpoint to return to upon losing target sight
+    /// </summary>
+    [SerializeField]
+    private GameObject HomePoint;
+
     /// <summary>
     /// Things to assign upon starting
     /// </summary>
@@ -80,7 +87,7 @@ public class StoneGuardian : MonoBehaviour
         // Get the attached NavMeshAgent and store it in agentComponent
         myAgent = GetComponent<NavMeshAgent>();
 
-        //Set start state to idle
+        //Set start state to Shoot
         nextState = "Shoot";
     }
 
@@ -105,6 +112,16 @@ public class StoneGuardian : MonoBehaviour
     }
 
     private IEnumerator Charge()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Stuck()
+    {
+        yield return null;
+    }
+
+    private IEnumerator Defeat()
     {
         yield return null;
     }
