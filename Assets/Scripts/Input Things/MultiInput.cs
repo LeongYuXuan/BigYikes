@@ -64,8 +64,9 @@ public class MultiInput : MonoBehaviour
         {
             //code to execute
             Debug.Log("On!");
-            onActivate();
             isActivate = true;
+            onActivate();
+            
         }
         //reset the true count if not
         else
