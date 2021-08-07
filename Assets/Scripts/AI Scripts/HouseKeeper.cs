@@ -29,6 +29,8 @@ public class HouseKeeper : MonoBehaviour
     [SerializeField]
     Transform pillars;
 
+    private Renderer render;
+
     [SerializeField]
     private Color ogColour;
 
@@ -91,10 +93,7 @@ public class HouseKeeper : MonoBehaviour
         while (currentState == "Housekeeping")
         {
             yield return null;
-            if (Statue.statueOn = true)
-            {
-                agentComponent.SetDestination(statuePos);
-            }
+            
         }
     }
 
