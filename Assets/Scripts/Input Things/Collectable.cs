@@ -22,6 +22,7 @@ public class Collectable : MonoBehaviour
     /// <summary>
     /// Bool to control whether to execute machete script
     /// </summary>
+
     public bool isMachete = false;
 
 
