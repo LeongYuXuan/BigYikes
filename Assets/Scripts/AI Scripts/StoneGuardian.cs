@@ -87,6 +87,9 @@ public class StoneGuardian : MonoBehaviour
         // Get the attached NavMeshAgent and store it in agentComponent
         myAgent = GetComponent<NavMeshAgent>();
 
+        // Set the target to the player
+        target = GameManager.instance.activePlayer.transform;
+
         //Set start state to Shoot
         nextState = "Shoot";
     }
@@ -108,21 +111,81 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        yield return null;
+        myAgent.speed = 5;
+        float time = 0;
+        while (currentState == "Shoot")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+            
+            if(time < 10)
+            {
+                time += Time.deltaTime;
+            }
+            else if(time > 10)
+            {
+                time = 0;
+                nextState = "Charge";
+            }
+        }
     }
 
     private IEnumerator Charge()
     {
-        yield return null;
+        myAgent.speed = 10;
+        float time = 0;
+        while (currentState == "Charge")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+
+            //timer for change
+            if (time < 10)
+            {
+                time += Time.deltaTime;
+            }
+            else if (time > 10)
+            {
+                time = 0;
+                nextState = "Shoot";
+            }
+        }
     }
 
     private IEnumerator Stuck()
     {
         yield return null;
+        myAgent.speed = 0;
+        float time = 0;
+        while (currentState == "Stuck")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+
+            //timer for change
+            if (time < 5)
+            {
+                time += Time.deltaTime;
+            }
+            else if (time > 5)
+            {
+                time = 0;
+                nextState = "Shoot";
+            }
+        }
     }
 
     private IEnumerator Defeat()
     {
         yield return null;
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && currentState == "Charge")
+        {
+            nextState = "Stuck";
+        }
+    }
+
 }
