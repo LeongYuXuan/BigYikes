@@ -103,4 +103,9 @@ public class StoneGuardian : MonoBehaviour
     {
         yield return null;
     }
+
+    private IEnumerator Charge()
+    {
+        yield return null;
+    }
 }
