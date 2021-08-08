@@ -42,7 +42,7 @@ public class StoneGuardian : MonoBehaviour
     /// <summary>
     /// Health of swarmer
     /// </summary>
-    public int health = 5;
+    public int health = 40;
 
     /// <summary>
     /// attack power of swarmer
@@ -177,15 +177,67 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Defeat()
     {
-        yield return null;
+        myAgent.speed = 0;
+        attack = 0;
+        while (currentState == "Defeat")
+        {
+            yield return null;
+            myAgent.enabled = false;
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+        
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && currentState == "Charge")
+        if (collision.gameObject.tag == "Gem" && currentState == "Charge")
         {
             nextState = "Stuck";
         }
+    }
+
+    /// <summary>
+    /// Function to trigger on anything to do with the boss' health
+    /// 
+    /// </summary>
+    /// <param name="">How much health to add. Go negative to subtract</param>
+    public void HealthManager(int Num)
+    {
+        //change health value based on that (only if not defeated)
+        if(currentState != "Defeat")
+        {
+            health += Num;
+        }
+        //trigger the colour change
+        StartCoroutine(colourChange());
+
+        //disappear if health = 0
+        if (health <= 0)
+        {
+            nextState = "Defeat";
+        }
+
+    }
+
+    ///<summary>
+    ///coroutine that playes to make the object flash
+    /// </summary>
+    private IEnumerator colourChange()
+    {
+        for (int i = 0; i < 2; ++i)
+        {
+            if (i == 0)
+            {
+                render.material.color = damageColour;
+            }
+            else if (i == 1)
+            {
+                render.material.color = ogColour;
+            }
+            yield return new WaitForSeconds(damageTime);
+        }
+
+
     }
 
 }
