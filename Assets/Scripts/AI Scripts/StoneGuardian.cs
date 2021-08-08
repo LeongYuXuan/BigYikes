@@ -111,7 +111,7 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        myAgent.speed = 5;
+        myAgent.speed = 3;
         float time = 0;
         while (currentState == "Shoot")
         {
@@ -190,6 +190,7 @@ public class StoneGuardian : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Gem" && currentState == "Charge")
         {
             nextState = "Stuck";
