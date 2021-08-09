@@ -10,7 +10,7 @@ public class HouseKeeper : MonoBehaviour
 
     public NavMeshAgent agentComponent;
 
-    //public int hkhealth = ;
+    public int hkhealth = 30;
     /// <summary>
     /// Array for keeping track of the statues
     /// </summary>
@@ -37,7 +37,7 @@ public class HouseKeeper : MonoBehaviour
 
     public Color damageColour;
 
-    //private float damageTime = 0.1f;
+    private float damageTime = 0.1f;
 
     [SerializeField]
     private GameObject HomePoint;
@@ -94,8 +94,65 @@ public class HouseKeeper : MonoBehaviour
         while (currentState == "Housekeeping")
         {
             yield return null;
-            
+            agentComponent.SetDestination(stat.statue.transform.position);
+
+            if (stat.statueOn = false)
+            {
+                Debug.Log("Nice and clean");
+                nextState = "Return";
+            }
         }
     }
 
+    private IEnumerator Return()
+    {
+        while (currentState == "Return")
+        {
+            yield return null;
+            agentComponent.SetDestination(HomePoint.transform.position);
+
+            //set back to idle once within range of the home point
+            if (Vector3.Distance(HomePoint.transform.position, transform.position) < 2)
+            {
+                nextState = "Idle";
+            }
+        }
+
+    }
+
+    public void HealthManager(int Num)
+    {
+        //change health value based on that
+        hkhealth += Num;
+        //trigger the colour change
+        StartCoroutine(colourChange());
+
+        //disappear if health = 0
+        if (hkhealth <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
+    }
+
+    ///<summary>
+    ///coroutine that playes to make the object flash
+    /// </summary>
+    private IEnumerator colourChange()
+    {
+        for (int i = 0; i < 2; ++i)
+        {
+            if (i == 0)
+            {
+                render.material.color = damageColour;
+            }
+            else if (i == 1)
+            {
+                render.material.color = ogColour;
+            }
+            yield return new WaitForSeconds(damageTime);
+        }
+
+
+    }
 }
