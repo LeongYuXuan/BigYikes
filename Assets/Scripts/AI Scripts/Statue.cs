@@ -26,8 +26,7 @@ public class Statue : MonoBehaviour
         statuePos = statue.transform.position;
         if (Vector3.Distance(statuePos, originalPos) > 0.5)
         {
-            statueOn = true;
-             
+            statueOn = true;   
         }
         else if (Vector3.Distance(statuePos, originalPos) < 0.5)
         {
