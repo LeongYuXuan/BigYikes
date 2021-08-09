@@ -111,12 +111,12 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        myAgent.speed = 3;
+        myAgent.speed = 10;
         float time = 0;
         while (currentState == "Shoot")
-        {
+        { 
             yield return null;
-            myAgent.SetDestination(target.position);
+            myAgent.SetDestination(target.position + target.forward*3.5f);
             
             if(time < 10)
             {
@@ -132,7 +132,7 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Charge()
     {
-        myAgent.speed = 10;
+        myAgent.speed = 15;
         float time = 0;
         while (currentState == "Charge")
         {
