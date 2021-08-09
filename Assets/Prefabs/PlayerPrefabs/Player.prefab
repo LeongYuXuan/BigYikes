@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1654686839058325699}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,10 +238,6 @@ MonoBehaviour:
   canStab: 0
   gemCount: 0
   SettingsUI: {fileID: 0}
-  objectName: {fileID: 0}
-  gemCountText: {fileID: 0}
-  staminaText: {fileID: 0}
-  healthText: {fileID: 0}
   CanMove: 1
   playerCamera: {fileID: 5884250820063884551}
   currentState: 

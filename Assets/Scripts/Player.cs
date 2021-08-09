@@ -238,6 +238,10 @@ public class Player : MonoBehaviour
                     {
                         hitinfo.transform.GetComponent<Swarmer>().HealthManager(-atk);
                     }
+                    else if (hitinfo.transform.GetComponent<StoneGuardian>() != null)
+                    {
+                        hitinfo.transform.GetComponent<StoneGuardian>().HealthManager(-atk);
+                    }
                     else
                     {
                         hitinfo.transform.GetComponent<WeakWall>().HealthManager(-atk);
