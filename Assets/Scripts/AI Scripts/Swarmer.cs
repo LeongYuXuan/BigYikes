@@ -84,8 +84,6 @@ public class Swarmer : MonoBehaviour
         // Get the attached NavMeshAgent and store it in agentComponent
         myAgent = GetComponent<NavMeshAgent>();
 
-
-
         //Set start state to idle
         nextState = "Idle";
 

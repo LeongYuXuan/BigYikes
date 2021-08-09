@@ -17,10 +17,11 @@ using UnityEngine.AI;
 public class StoneGuardian : MonoBehaviour
 {
     //Active state controlled externally
-    //Stays away from player from a fixed distance and shoots at them for a while
-    //Charges at player. deals twice the damage but can get stuck in walls
+    //Stays away from player from a fixed distance and shoots at them (10 seconds)
+    //Charges at player. deals twice the damage but can get stuck in walls (10 seconds)
     //Stuck for 5 seconds
-    //Shoot, Charge and Stuck stages
+    //Stops enemy spawn and spawns in gem when defeated. Becomes immobile
+    //Shoot, Charge, Stuck, Defeat state
 
     /// <summary>
     /// Coroutine setup
@@ -41,7 +42,7 @@ public class StoneGuardian : MonoBehaviour
     /// <summary>
     /// Health of swarmer
     /// </summary>
-    public int health = 5;
+    public int health = 40;
 
     /// <summary>
     /// attack power of swarmer
@@ -69,6 +70,12 @@ public class StoneGuardian : MonoBehaviour
     /// </summary>
     private float damageTime = 0.1f;
 
+    ///<summary>
+    ///Checkpoint to return to upon losing target sight
+    /// </summary>
+    [SerializeField]
+    private GameObject HomePoint;
+
     /// <summary>
     /// Things to assign upon starting
     /// </summary>
@@ -80,7 +87,10 @@ public class StoneGuardian : MonoBehaviour
         // Get the attached NavMeshAgent and store it in agentComponent
         myAgent = GetComponent<NavMeshAgent>();
 
-        //Set start state to idle
+        // Set the target to the player
+        target = GameManager.instance.activePlayer.transform;
+
+        //Set start state to Shoot
         nextState = "Shoot";
     }
 
@@ -101,11 +111,134 @@ public class StoneGuardian : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        yield return null;
+        myAgent.speed = 3;
+        float time = 0;
+        while (currentState == "Shoot")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+            
+            if(time < 10)
+            {
+                time += Time.deltaTime;
+            }
+            else if(time > 10)
+            {
+                time = 0;
+                nextState = "Charge";
+            }
+        }
     }
 
     private IEnumerator Charge()
     {
-        yield return null;
+        myAgent.speed = 10;
+        float time = 0;
+        while (currentState == "Charge")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+
+            //timer for change
+            if (time < 10)
+            {
+                time += Time.deltaTime;
+            }
+            else if (time > 10)
+            {
+                time = 0;
+                nextState = "Shoot";
+            }
+        }
     }
+
+    private IEnumerator Stuck()
+    {
+        yield return null;
+        myAgent.speed = 0;
+        float time = 0;
+        while (currentState == "Stuck")
+        {
+            yield return null;
+            myAgent.SetDestination(target.position);
+
+            //timer for change
+            if (time < 5)
+            {
+                time += Time.deltaTime;
+            }
+            else if (time > 5)
+            {
+                time = 0;
+                nextState = "Shoot";
+            }
+        }
+    }
+
+    private IEnumerator Defeat()
+    {
+        myAgent.speed = 0;
+        attack = 0;
+        while (currentState == "Defeat")
+        {
+            yield return null;
+            myAgent.enabled = false;
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+        
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Gem" && currentState == "Charge")
+        {
+            nextState = "Stuck";
+        }
+    }
+
+    /// <summary>
+    /// Function to trigger on anything to do with the boss' health
+    /// 
+    /// </summary>
+    /// <param name="">How much health to add. Go negative to subtract</param>
+    public void HealthManager(int Num)
+    {
+        //change health value based on that (only if not defeated)
+        if(currentState != "Defeat")
+        {
+            health += Num;
+        }
+        //trigger the colour change
+        StartCoroutine(colourChange());
+
+        //disappear if health = 0
+        if (health <= 0)
+        {
+            nextState = "Defeat";
+        }
+
+    }
+
+    ///<summary>
+    ///coroutine that playes to make the object flash
+    /// </summary>
+    private IEnumerator colourChange()
+    {
+        for (int i = 0; i < 2; ++i)
+        {
+            if (i == 0)
+            {
+                render.material.color = damageColour;
+            }
+            else if (i == 1)
+            {
+                render.material.color = ogColour;
+            }
+            yield return new WaitForSeconds(damageTime);
+        }
+
+
+    }
+
 }
