@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class HouseKeeper : MonoBehaviour
 {
+    public Statue stat;
 
     public NavMeshAgent agentComponent;
 
@@ -36,7 +37,7 @@ public class HouseKeeper : MonoBehaviour
 
     public Color damageColour;
 
-    private float damageTime = 0.1f;
+    //private float damageTime = 0.1f;
 
     [SerializeField]
     private GameObject HomePoint;
@@ -79,7 +80,7 @@ public class HouseKeeper : MonoBehaviour
         while (currentState == "Idle")
         {
             yield return null;
-            //if (Vector3.Distance(GameManager.instance.activePlayer.transform.position, transform.position) < 8)
+            if (stat.statueOn = true)
             {
                 Debug.Log("Discrepancy detected.");
                 nextState = "Housekeeping";

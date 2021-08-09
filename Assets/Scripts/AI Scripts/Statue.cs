@@ -11,11 +11,15 @@ public class Statue : MonoBehaviour
 
     private Vector3 statuePos;
 
+    [SerializeField]
+    private int statueSpd; 
+
     public bool statueOn;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         originalPos = statue.transform.position;
     }
 
@@ -24,13 +28,13 @@ public class Statue : MonoBehaviour
     void Update()
     {
         statuePos = statue.transform.position;
-        if (Vector3.Distance(statuePos, originalPos) > 0.5)
-        {
-            statueOn = true;   
-        }
-        else if (Vector3.Distance(statuePos, originalPos) < 0.5)
+        if (Vector3.Distance(statuePos, originalPos) < 0.5)
         {
             statueOn = false;
+        }
+        else if (Vector3.Distance(statuePos, originalPos) > 0.5)
+        {
+            statueOn = true;
         }
     }
 }
