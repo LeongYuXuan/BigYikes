@@ -118,7 +118,6 @@ MonoBehaviour:
   attack: 1
   ogColour: {r: 0, g: 0, b: 0, a: 0}
   damageColour: {r: 1, g: 0, b: 0, a: 1}
-  Player: {fileID: 0}
   HomePoint: {fileID: 3055275085499236001}
 --- !u!195 &3055275084676281165
 NavMeshAgent:

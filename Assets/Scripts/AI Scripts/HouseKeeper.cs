@@ -6,7 +6,10 @@ using UnityEngine.AI;
 
 public class HouseKeeper : MonoBehaviour
 {
-    public Statue stat;
+    /// <summary>
+    /// movement target assigning
+    /// </summary>
+    private GameObject target;
 
     public NavMeshAgent agentComponent;
 
@@ -25,10 +28,7 @@ public class HouseKeeper : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed;
-
-    //pillar to go toward
-    [SerializeField]
-    Transform pillars;
+    
 
     private Renderer render;
 
@@ -48,10 +48,11 @@ public class HouseKeeper : MonoBehaviour
         render = GetComponent<MeshRenderer>();
         ogColour = render.material.color;
 
-
+        //Agent Assigning
+        agentComponent = GetComponent<NavMeshAgent>();
 
         //Set start state to idle
-        nextState = "Idle";
+        nextState = "Checking";
     }
 
     // Update is called once per frame
@@ -75,15 +76,20 @@ public class HouseKeeper : MonoBehaviour
 
     }
 
-    private IEnumerator Idle()
+    private IEnumerator Checking()
     {
-        while (currentState == "Idle")
+        while (currentState == "Checking")
         {
             yield return null;
-            if (stat.statueOn = true)
+            for(int i = 0; i < statueArray.Length; ++i)
             {
-                Debug.Log("Discrepancy detected.");
-                nextState = "Housekeeping";
+                var statueActive = statueArray[i].GetComponent<Statue>().statueOn;
+                if (statueActive)
+                {
+                    Debug.Log("Discrepancy detected.");
+                    target = statueArray[i];
+                    nextState = "Housekeeping";
+                }
             }
         }
 
@@ -94,10 +100,12 @@ public class HouseKeeper : MonoBehaviour
         while (currentState == "Housekeeping")
         {
             yield return null;
-            agentComponent.SetDestination(stat.statue.transform.position);
 
-            if (stat.statueOn = false)
+            agentComponent.SetDestination(target.transform.position);
+
+            if (target.GetComponent<Statue>().statueOn == false)
             {
+                target = HomePoint;
                 Debug.Log("Nice and clean");
                 nextState = "Return";
             }
@@ -109,12 +117,13 @@ public class HouseKeeper : MonoBehaviour
         while (currentState == "Return")
         {
             yield return null;
+            //going to position of return point
             agentComponent.SetDestination(HomePoint.transform.position);
 
             //set back to idle once within range of the home point
             if (Vector3.Distance(HomePoint.transform.position, transform.position) < 2)
             {
-                nextState = "Idle";
+                nextState = "Checking";
             }
         }
 
