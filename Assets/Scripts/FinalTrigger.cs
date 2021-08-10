@@ -17,10 +17,10 @@ public class FinalTrigger : MonoBehaviour
 {
     public GameObject EndCanvas;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        GameManager.instance.activePlayer.CanMove = false;
-        EndCanvas.SetActive(true);
+        //GameManager.instance.activePlayer.CanMove = false;
+        GameManager.instance.endPanel.SetActive(true);
 
     }
 }
