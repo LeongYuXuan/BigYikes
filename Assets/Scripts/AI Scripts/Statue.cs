@@ -70,9 +70,9 @@ public class Statue : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (statueOn == false||other.gameObject.name == "HK")
+        if (statueOn == true && other.gameObject.name == "HK")
         {
             statueAgent.enabled = true;
         }
