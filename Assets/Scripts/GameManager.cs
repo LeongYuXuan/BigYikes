@@ -62,7 +62,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public Text healthText;
 
-    
+    /// <summary>
+    /// The settings panel in the UI
+    /// </summary>
+    public GameObject SettingsUI;
+
+    /// <summary>
+    /// Bool to toggle SetActive() of SettingsUI
+    /// </summary>
+    private bool toggle = false;
+
+
     void Awake()
     {
         Debug.Log("Gameobject: " + gameObject);
@@ -78,10 +88,26 @@ public class GameManager : MonoBehaviour
             SceneManager.activeSceneChanged += SpawnOnSceneLoad;
             instance = this;
             Debug.Log("assign gm");
-        }
-        
+        } 
+    }
 
-        
+    //activates every frame or something
+    private void Update()
+    {
+        MenuTrigger();
+    }
+
+    /// <summary>
+    /// Function that brings up the settings menu 
+    /// </summary>
+    private void MenuTrigger()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            toggle = !toggle;
+            SettingsUI.SetActive(toggle);
+            activePlayer.CanMove = !activePlayer.CanMove;
+        }
     }
 
     private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
