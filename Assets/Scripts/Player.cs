@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
         }
         CheckRotation();
         InteractRaycast();
-        MenuTrigger();
+        //MenuTrigger();
 
         //Jump function
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
