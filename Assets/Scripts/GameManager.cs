@@ -130,8 +130,8 @@ public class GameManager : MonoBehaviour
         //destroy the "dontdestroyonload" objects if going into the main menu   
         if (nextScene.name == "Main Menu")
         {
-            Destroy(gameObject);       
-            Destroy(uiPrefab.gameObject);
+            //Destroy(gameObject);       
+            //Destroy(uiPrefab.gameObject);
             Debug.Log("hehe");
 
 
@@ -165,12 +165,7 @@ public class GameManager : MonoBehaviour
                 activePlayer.transform.position = spawnPostion;
                 activePlayer.transform.rotation = spawnRotation;
                 Debug.Log("move");
-            }
-
-            //turn off options and restore player movement
-            activePlayer.CanMove = true;
-            toggle = false;
-            SettingsUI.SetActive(toggle);
+            } 
 
             //if no assigned ui prefab, assign new one from spawn scene
             if (uiPrefab == null)
@@ -188,6 +183,11 @@ public class GameManager : MonoBehaviour
                 }
 
             }
+
+            //turn off options and restore player movement
+            activePlayer.CanMove = true;
+            toggle = false;
+            SettingsUI.SetActive(toggle);
         }
 
         
