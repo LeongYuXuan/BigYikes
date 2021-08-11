@@ -132,7 +132,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("hehe");
             Destroy(uiPrefab.gameObject);
+            Destroy(instance);
             Destroy(gameObject);
+
         }
         //find the spawn area for the player
         SpawnArea playerSpot = FindObjectOfType<SpawnArea>();
