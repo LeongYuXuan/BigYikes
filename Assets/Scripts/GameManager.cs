@@ -63,6 +63,16 @@ public class GameManager : MonoBehaviour
     public Text healthText;
 
     /// <summary>
+    /// stores the panel that shows up upon defeat
+    /// </summary>
+    public GameObject defeatPanel;
+
+    /// <summary>
+    /// stores the panel that shows up upon fiish
+    /// </summary>
+    public GameObject endPanel;
+
+    /// <summary>
     /// The settings panel in the UI
     /// </summary>
     public GameObject SettingsUI;
@@ -75,7 +85,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Gameobject: " + gameObject);
         //to destroy itself if the scene already has one by default?
         if (instance != null && instance != this)
         {
@@ -95,6 +104,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         MenuTrigger();
+        //additional things to do upon player defeat
+        if (activePlayer.health == 0)
+        {
+            defeatPanel.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -110,14 +124,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
     {
+        if(nextScene.name == "Main Menu")
+        {
+            Debug.Log("hehe");
+            Destroy(uiPrefab.gameObject);
+            Destroy(gameObject);
+        }
         //find the spawn area for the player
         SpawnArea playerSpot = FindObjectOfType<SpawnArea>();
         //assign rotation and position for convinience
         Vector3 spawnPostion = playerSpot.transform.position;
         Quaternion spawnRotation = playerSpot.transform.rotation;
-
 
         //Debug.Log(activePlayer);
         //spawn new player at the specified location if active is null
@@ -133,6 +154,12 @@ public class GameManager : MonoBehaviour
             activePlayer.transform.rotation = spawnRotation;
             //Debug.Log("move");
         }
+
+        //turn off options and restore player movement
+        activePlayer.CanMove = true;
+        toggle = false;
+        SettingsUI.SetActive(toggle);
+
         //if no assigned ui prefab, assign new one from spawn scene
         if (uiPrefab == null)
         {
