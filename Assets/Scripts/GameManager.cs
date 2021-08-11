@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
         else
         {
             DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged -= SpawnOnSceneLoad;
             SceneManager.activeSceneChanged += SpawnOnSceneLoad;
             instance = this;
             Debug.Log("assign gm");
@@ -124,57 +125,71 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
     private void SpawnOnSceneLoad(Scene currentScene, Scene nextScene)
     {
-        if(nextScene.name == "Main Menu")
+        //destroy the "dontdestroyonload" objects if going into the main menu   
+        if (nextScene.name == "Main Menu")
         {
-            Debug.Log("hehe");
+            Destroy(gameObject);       
             Destroy(uiPrefab.gameObject);
-            Destroy(gameObject);
-        }
-        //find the spawn area for the player
-        SpawnArea playerSpot = FindObjectOfType<SpawnArea>();
-        //assign rotation and position for convinience
-        Vector3 spawnPostion = playerSpot.transform.position;
-        Quaternion spawnRotation = playerSpot.transform.rotation;
+            Debug.Log("hehe");
 
-        //Debug.Log(activePlayer);
-        //spawn new player at the specified location if active is null
-        if (activePlayer == null)
-        {
-            GameObject newPlayer = Instantiate(playerPrefab, spawnPostion, spawnRotation);
-            activePlayer = newPlayer.GetComponent<Player>();
-            //Debug.Log("spawn");
-        }//move the active player to that place
+
+
+        }
+        //only do the spawning if it is not loading the main menu
         else
         {
-            activePlayer.transform.position = spawnPostion;
-            activePlayer.transform.rotation = spawnRotation;
-            //Debug.Log("move");
-        }
+            //assign rotation and position for convinience
+            Vector3 spawnPostion = Vector3.zero;
+            Quaternion spawnRotation = Quaternion.identity;
 
-        //turn off options and restore player movement
-        activePlayer.CanMove = true;
-        toggle = false;
-        SettingsUI.SetActive(toggle);
-
-        //if no assigned ui prefab, assign new one from spawn scene
-        if (uiPrefab == null)
-        {
-            uiPrefab = FindObjectOfType<Canvas>();
-            DontDestroyOnLoad(uiPrefab);
-            
-        }
-        else // uiPrefab already filled, and there is more than one, delete the new one
-        {
-            var test = FindObjectsOfType<Canvas>();
-            if (test.Length > 1)
+            //find the spawn area for the player
+            SpawnArea playerSpot = FindObjectOfType<SpawnArea>();
+            //only give values if not null
+            if (playerSpot != null)
             {
-                Destroy(test[1].gameObject);
+                spawnPostion = playerSpot.transform.position;
+                spawnRotation = playerSpot.transform.rotation;
             }
-            
+
+            //spawn new player at the specified location if active is null
+            if (activePlayer == null)
+            {
+                GameObject newPlayer = Instantiate(playerPrefab, spawnPostion, spawnRotation);
+                activePlayer = newPlayer.GetComponent<Player>();
+                Debug.Log("spawn");
+            }//move the active player to that place
+            else
+            {
+                activePlayer.transform.position = spawnPostion;
+                activePlayer.transform.rotation = spawnRotation;
+                Debug.Log("move");
+            }
+
+            //turn off options and restore player movement
+            activePlayer.CanMove = true;
+            toggle = false;
+            SettingsUI.SetActive(toggle);
+
+            //if no assigned ui prefab, assign new one from spawn scene
+            if (uiPrefab == null)
+            {
+                uiPrefab = FindObjectOfType<Canvas>();
+                DontDestroyOnLoad(uiPrefab);
+
+            }
+            else // uiPrefab already filled, and there is more than one, delete the new one
+            {
+                var test = FindObjectsOfType<Canvas>();
+                if (test.Length > 1)
+                {
+                    Destroy(test[1].gameObject);
+                }
+
+            }
         }
+
+        
     }
 }
