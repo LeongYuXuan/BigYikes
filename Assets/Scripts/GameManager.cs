@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
     public Text healthText;
 
     /// <summary>
+    /// Stores any dialogue
+    /// </summary>
+    public Text dialogue;
+
+    /// <summary>
     /// stores the panel that shows up upon defeat
     /// </summary>
     public GameObject defeatPanel;

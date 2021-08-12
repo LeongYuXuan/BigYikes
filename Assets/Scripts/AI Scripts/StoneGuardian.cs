@@ -190,7 +190,7 @@ public class StoneGuardian : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Gem" && currentState == "Charge")
         {
             nextState = "Stuck";
