@@ -9,7 +9,8 @@ public class HouseKeeper : MonoBehaviour
     /// <summary>
     /// movement target assigning
     /// </summary>
-    private GameObject target;
+    [HideInInspector]
+    public GameObject target;
 
     public NavMeshAgent agentComponent;
 
@@ -86,7 +87,7 @@ public class HouseKeeper : MonoBehaviour
                 var statueActive = statueArray[i].GetComponent<Statue>().statueOn;
                 if (statueActive)
                 {
-                    Debug.Log("Discrepancy detected.");
+                    //Debug.Log("Discrepancy detected.");
                     target = statueArray[i];
                     nextState = "Housekeeping";
                 }
@@ -106,7 +107,7 @@ public class HouseKeeper : MonoBehaviour
             if (target.GetComponent<Statue>().statueOn == false)
             {
                 target = HomePoint;
-                Debug.Log("Nice and clean");
+                //Debug.Log("Nice and clean");
                 nextState = "Return";
             }
         }
