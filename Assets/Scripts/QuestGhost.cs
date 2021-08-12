@@ -57,8 +57,7 @@ public class QuestGhost : MonoBehaviour
     /// <summary>
     /// true once all quest complete
     /// </summary>
-    [SerializeField]
-    private bool grandQuestFinish = false;
+    public bool grandQuestFinish = false;
 
 
     /// <summary>
