@@ -77,6 +77,12 @@ public class StoneGuardian : MonoBehaviour
     private GameObject HomePoint;
 
     /// <summary>
+    /// gem pedestal to make appear
+    /// </summary>
+    [SerializeField]
+    private GameObject gem;
+
+    /// <summary>
     /// Things to assign upon starting
     /// </summary>
     private void Start()
@@ -188,12 +194,21 @@ public class StoneGuardian : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Things to do upon colldiing with something
+    /// </summary>
+    /// <param name="collision">thing it collided with</param>
     public void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Gem" && currentState == "Charge")
         {
             nextState = "Stuck";
+        }
+        //hurt the player if it is not dead
+        else if(collision.gameObject.tag == "Player" && currentState != "Defeat")
+        {
+            collision.transform.GetComponent<Player>().HealthManager(-attack);
         }
     }
 
@@ -205,16 +220,18 @@ public class StoneGuardian : MonoBehaviour
     public void HealthManager(int Num)
     {
         //change health value based on that (only if not defeated)
-        if(currentState != "Defeat")
+        if(currentState == "Stuck")
         {
             health += Num;
+            //trigger the colour change
+            StartCoroutine(colourChange());
         }
-        //trigger the colour change
-        StartCoroutine(colourChange());
+        
 
         //disappear if health = 0
         if (health <= 0)
         {
+            gem.SetActive(true);
             nextState = "Defeat";
         }
 

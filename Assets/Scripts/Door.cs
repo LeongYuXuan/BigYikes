@@ -53,8 +53,8 @@ public class Door : MonoBehaviour
     /// <summary>
     /// The animation clips to play depending on action
     /// </summary>
-    [SerializeField]
-    private AnimationClip[] DoorClips;
+    
+    public AnimationClip[] DoorClips;
 
     /// <summary>
     /// What happens upon being interacted with

@@ -27,6 +27,12 @@ public class Swarmer : MonoBehaviour
     public string currentState;
 
     /// <summary>
+    /// float that determines the aggrodistance of the swarmer
+    /// </summary>
+    [SerializeField]
+    private float aggroDistance = 8;
+
+    /// <summary>
     /// The NavMeshAgent this is attached to
     /// </summary>
     public NavMeshAgent myAgent;
@@ -106,7 +112,7 @@ public class Swarmer : MonoBehaviour
         while (currentState == "Idle")
         {
             yield return null;
-            if (Vector3.Distance(GameManager.instance.activePlayer.transform.position, transform.position) < 8)
+            if (Vector3.Distance(GameManager.instance.activePlayer.transform.position, transform.position) < aggroDistance)
             {
                 Debug.Log("Stop, criminal scum. You violated the law.");
                 nextState = "Chasing";
@@ -125,7 +131,7 @@ public class Swarmer : MonoBehaviour
             //move swarmer towards player
             myAgent.SetDestination(target.position);
 
-            if (Vector3.Distance(target.position, transform.position) > 8)
+            if (Vector3.Distance(target.position, transform.position) > aggroDistance)
             {
                 Debug.Log("Must have been the wind");
                 nextState = "Return";
@@ -158,7 +164,11 @@ public class Swarmer : MonoBehaviour
     /// <param name="collision">the gameobject it collided with</param>
     private void OnCollisionEnter(Collision collision)
     {
-        collision.transform.GetComponent<Player>().HealthManager(-attack);
+        //hurt the player if it is not dead
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.transform.GetComponent<Player>().HealthManager(-attack);
+        }
     }
 
 
