@@ -14,6 +14,7 @@ TagManager:
   - Toggle
   - Laser
   - PressureItem
+  - QuestMan
   layers:
   - Default
   - TransparentFX

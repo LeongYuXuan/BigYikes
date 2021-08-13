@@ -118,8 +118,9 @@ public class Player : MonoBehaviour
 
         //hide GemCount Text upon starting
         GameManager.instance.gemCountText.text = "";
+        GameManager.instance.dialogue.text = "";
 
-        //set the text  values to their respective attributes
+        //set the text values to their respective attributes
         GameManager.instance.staminaText.text = "Stamina: " + stamina.ToString();
         GameManager.instance.healthText.text = " Health: " + health.ToString();
 
@@ -250,6 +251,10 @@ public class Player : MonoBehaviour
                 else if (objTag == "Door")
                 {
                     hitinfo.transform.GetComponent<Door>().Interact();
+                }
+                else if (objTag == "QuestMan")
+                {
+                    hitinfo.transform.GetComponent<QuestGhost>().Interact();
                 }
 
             }

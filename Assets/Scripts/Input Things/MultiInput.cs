@@ -13,6 +13,7 @@ Date Created: 06/08/2021
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MultiInput : MonoBehaviour
 {
@@ -107,6 +108,11 @@ public class MultiInput : MonoBehaviour
             else if (objtag == "Laser")
             {
                 activateArray[j].transform.GetComponent<LaserPost>().switchInteract();
+            }
+            else if (objtag == "Enemy")
+            {
+                activateArray[j].transform.GetComponent<HouseKeeper>().target = null ;
+                activateArray[j].transform.GetComponent<NavMeshAgent>().isStopped = true;
             }
         }
     }
