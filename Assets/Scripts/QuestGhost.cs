@@ -25,8 +25,16 @@ public class QuestGhost : MonoBehaviour
     /// </summary>
     private Player player;
 
-    //array to store walls to remove
-    public GameObject[] wallArray; 
+    /// <summary>
+    /// array of walls to remove
+    /// </summary>
+    public GameObject[] wallArray;
+
+    /// <summary>
+    /// door to affect
+    /// </summary>
+    public Door FinalDoor;
+
 
     /// <summary>
     /// prevent player from doing things early
@@ -153,6 +161,7 @@ public class QuestGhost : MonoBehaviour
             if (player.gemCount == 3)
             {
                 coroutine = speak(quest3Dialogue, 3f);
+                FinalDoor.locked = false;
                 StartCoroutine(coroutine);
                 quest2Finish = true;
             }
