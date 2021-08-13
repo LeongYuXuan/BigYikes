@@ -18,6 +18,16 @@ using UnityEngine;
 public class LaserPost : MonoBehaviour
 {
     /// <summary>
+    /// to call the coroutine by a var to keep track or something
+    /// </summary>
+    private IEnumerator coroutine;
+
+    /// <summary>
+    /// dialogue for when head is unlocked by a switch
+    /// </summary>
+    public string[] unlockDialogue;
+
+    /// <summary>
     /// whether the laser is activated or not
     /// </summary>
     public bool isOn;
@@ -101,6 +111,34 @@ public class LaserPost : MonoBehaviour
     {
         gameObject.GetComponent<BoxCollider>().enabled = true;
         laserHead.GetComponent<MeshRenderer>().enabled = true;
+        coroutine = (speak(unlockDialogue, 5f));
+        StartCoroutine(coroutine);
     }
 
+    /// <summary>
+    /// Function to display text on screen
+    /// </summary>
+    /// <param name="dialogue"> the string array to use for dialogue</param>
+    /// <param name="time"> time between dialogue</param>
+    /// <returns></returns>
+    public IEnumerator speak(string[] dialogue, float time)
+    {
+        //go through the string array and display the text
+        for (int i = 0; i <= dialogue.Length; ++i)
+        {
+            if (i < dialogue.Length)
+            {
+                GameManager.instance.dialogue.text = dialogue[i];
+            }
+            //final i value will be outside array index
+            //used to set dialogue back to blank
+            else if (i == dialogue.Length)
+            {
+                GameManager.instance.dialogue.text = "";
+            }
+            //time between the dialogue
+            yield return new WaitForSeconds(time);
+        }
+
+    }
 }

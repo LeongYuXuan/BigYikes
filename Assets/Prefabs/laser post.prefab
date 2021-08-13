@@ -349,6 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa9025d188316d459bae2d7141a4fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockDialogue:
+  - You heard a warping sound coming from the room with the lasers...
   isOn: 1
   laserHead: {fileID: 6713568426863734385}
 --- !u!1 &4907701005544500024
