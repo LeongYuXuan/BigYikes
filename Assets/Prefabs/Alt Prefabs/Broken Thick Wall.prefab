@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7751509328716338912}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Broken Thick Wall
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 119
@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 964886665530272212}
   - component: {fileID: 7751210046088222814}
   - component: {fileID: 2195811778335008805}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Thicc_Wall
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 119

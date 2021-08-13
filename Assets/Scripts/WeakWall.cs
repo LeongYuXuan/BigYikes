@@ -25,7 +25,7 @@ public class WeakWall : MonoBehaviour
     private Renderer render;
 
     ///<summary>
-    ///original colour of the swarmer material
+    ///original colour of the wall material
     /// </summary>
     [SerializeField]
     private Color ogColour;
