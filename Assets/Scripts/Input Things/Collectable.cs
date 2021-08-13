@@ -42,7 +42,7 @@ public class Collectable : MonoBehaviour
         }
 
         //set item to be invisable so Dialogue still gets to play
-        GetComponent<MeshCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
     }
 
