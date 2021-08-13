@@ -32114,6 +32114,7 @@ MonoBehaviour:
   gemCountText: {fileID: 1266359471}
   staminaText: {fileID: 1266359470}
   healthText: {fileID: 1266359469}
+  dialogue: {fileID: 0}
   defeatPanel: {fileID: 0}
   endPanel: {fileID: 0}
   SettingsUI: {fileID: 0}
