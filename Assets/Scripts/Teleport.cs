@@ -28,7 +28,11 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (canHurt)
+        if (other.tag == "Player")
+        {
+            other.transform.position = targetLocation.position;
+            other.transform.position = targetLocation.rotation;
+            if (canHurt)}
         {
             other.GetComponent<Player>().HealthManager(-atk);
         }
@@ -36,3 +40,4 @@ public class Teleport : MonoBehaviour
         other.transform.rotation = targetLocation.rotation;
     }
 }
+
